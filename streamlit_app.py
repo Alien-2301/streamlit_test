@@ -1,39 +1,59 @@
-import numpy as np
-import altair as alt
-import pandas as pd
 import streamlit as st
+from datetime import time, datetime
 
-st.header('st.write')
+st.header('st.slider')
 
 # Example 1
-st.write("Hello, *World!* :sunglasses:")
+st.subheader('Slider')
+
+age = st.slider('How old are you?', 0, 130, 25)
+st.write("I am ", age, "years old")
+
 
 # Example 2
-st.write(1234)
+st.subheader('Range slider')
 
-# example 3
+values = st.slider(
+    'Select a range of values',
+    0.0, 100.0, (25.0, 75.0)
+)
 
-df = pd.DataFrame({
-    'first_col': [1,2,3,4],
-    'second_col': [10,20,30,40]
-})
+st.write("Values: ", values, values[1] - values[0])
 
-st.write(df)
+
+# Example 3
+st.subheader('Range Time slider')
+
+appointment = st.slider(
+    'Schedule your appointment',
+    value = (time(11,30), time(12,45)))
+
+st.write("Appointment", appointment[0], " - ", appointment[1])
+
 
 # Example 4
-st.write('Below is Dataframe', df, 'Above is Dataframe')
-
-df2 = pd.DataFrame(
-    np.random.rand(200,3),
-    columns = ['a','b','c']
+st.subheader('Datetime slider')
+start_time = st.slider(
+    "When do you start?",
+    value = datetime(2020, 1,1,9, 30), 
+    format = ("MM/DD/YY - hh:mm")
 )
 
-c = alt.Chart(df2).mark_circle().encode(
-    x='a',
-    y='b',
-    size = 'c',
-    color = 'c',
-    tooltip = ['a', 'b', 'c']
+st.write("Start time: ", start_time)
+
+# Example 5
+
+color = st.select_slider(
+    "Select a color of the rainbow",
+    options = [
+        "red",
+        "orange",
+        "yellow",
+        "green",
+        "blue",
+        "indigo",
+        "violet",
+    ]
 )
 
-st.write(c)
+st.write("My Favourite color is ", color)
